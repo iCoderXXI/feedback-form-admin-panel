@@ -1144,7 +1144,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 	}
 
-	
+
 
 	static $join = array(
 
@@ -1156,7 +1156,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 	);
 
-	
+
 
 	/**
 
@@ -1358,7 +1358,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 			if ($value === null) return 'NULL';
 
-			
+
 
 			switch ($type) {
 
@@ -1372,7 +1372,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 			}
 
-			
+
 
 			// нативные плейсхолдеры необходимо обработать после числовых из-за бага в PDO
 
@@ -1390,7 +1390,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 				return 'DBSIMPLE_ERROR_VALUE_NOT_SCALAR';
 
-			
+
 
 			// By default - escape as string.
 
@@ -1410,7 +1410,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 				$prevPh = $this->_placeholderNativeArgs;
 
-			
+
 
 			// Проверка на {?  } - условный блок
 
@@ -1426,17 +1426,17 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 			}
 
-			
+
 
 			$block = $this->_expandOptionalBlock($block);
 
-			
+
 
 			if ($skip)
 
 				$block = '';
 
-			
+
 
 			if ($this->_placeholderNativeArgs !== null)
 
@@ -1528,7 +1528,7 @@ abstract class DbSimple_Generic_Database extends DbSimple_Generic_LastError
 
 	}
 
-	
+
 
 	/**
 
@@ -2080,9 +2080,9 @@ class DbSimple_SubQuery
 
 	private $query=array();
 
-	
 
-	
+
+
 
 	public function __construct(array $q)
 
@@ -2116,7 +2116,7 @@ class DbSimple_SubQuery
 
 	}
 
-	
+
 
 }
 

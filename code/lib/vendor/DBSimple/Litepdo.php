@@ -68,7 +68,7 @@ class DbSimple_Litepdo extends DbSimple_Generic_Database
 
 	}
 
-	
+
 
 	public function CreateFunction($function_name, $callback, $num_args)
 

@@ -74,7 +74,7 @@ class DbSimple_Sqlite extends DbSimple_Generic_Database
 
 	}
 
-	
+
 
 	public function CreateFunction($function_name, $callback, $num_args)
 
@@ -84,7 +84,7 @@ class DbSimple_Sqlite extends DbSimple_Generic_Database
 
 	{	return $this->db->createAggregate($function_name, $step_func, $finalize_func, $num_args); }
 
-	
+
 
 	protected function _performGetPlaceholderIgnoreRe()
 
