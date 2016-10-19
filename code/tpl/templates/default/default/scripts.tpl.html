@@ -7,7 +7,9 @@
 <script src="assets/js/locales/ru.js"></script>
 
 <style>
-  .file-upload-indicator, .file-actions {
+  .file-upload-indicator,
+  .file-actions
+  {
     display: none;
   }
 </style>
@@ -31,8 +33,36 @@ $(document).ready(function() {
         showZoom: false,
       }
 
-  }).on('fileimageloaded', function(event, previewId) {
-    console.log("fileimageloaded");
+  //}).on('fileimageloaded', function(event, previewId) {
+  //  console.log("fileimageloaded");
+  }).on('filecleared', function(event) {
+    imgSrc = "assets/img/placeholder-320x240.png";
+    $('#preview-img').attr('src', imgSrc);
+  });
+
+  $('#preview-btn').on('click', function() {
+    //let blob = $('#input-dim-2').fileinput('getFileStack');
+    //let urlCreator = window.URL || window.webkitURL;
+    //let imgSrc = urlCreator.createObjectURL(new Blob([blob], { type: "image/jpeg" }));
+    let imgSrc = $('.file-preview-image').attr('src');
+
+    if (!imgSrc) {
+      imgSrc = "assets/img/placeholder-320x240.png";
+    }
+    $('#preview-img').attr('src', imgSrc);
+
+
+    let feedback = $('#feedback').html().replace(/\n/g, "<br />");
+    $('#feedback-preview-body').html(feedback);
+    $('#feedback-preview-title').html($('#name').val());
+
+    $('#feedback-preview').show();
+    //$("#input-dim-2").fileinput('upload');
+
+  });
+
+  $('#submit-btn').on('click', function() {
+    alert('Yo!');
   });
 });
 </script>

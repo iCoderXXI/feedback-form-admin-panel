@@ -1,19 +1,18 @@
 
 <div class="wrapper">
 
+  {assign "imgSrc" "assets/img/placeholder-320x240.png"}
+
   {for $i=1 to 10}
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Basic panel example #{$i}</h3>
-    </div>
-    <div class="panel-body">
-      <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>.</p>
-    </div>
-  </div>
+  {assign "feedback" "Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>."}
+  {include file="./feedback-panel.tpl.html" title="Basic panel example #{$i}" feedback={$feedback} imgId="img-{$i}" imgSrc=$imgSrc left={$i%2}}
 
   {/for}
 
+  {assign "feedback" {$appData.data.li}}
+  {include file="./feedback-panel.tpl.html" id="feedback-preview" title="Предварительный просмотр" feedback="" imgId="preview-img" imgSrc=$imgSrc left={$i%2}}
+
   {include file="./form.tpl.html"}
-  
+
 </div>

@@ -1,0 +1,41 @@
+
+<div class="panel panel-default" {if $id}id="{$id}"{/if}>
+  <div class="panel-heading">
+    <h3 class="panel-title" {if $id}id="{$id}-title"{/if}>{$title}</h3>
+  </div>
+
+  {if $imgSrc && $imgId}
+
+  <div class="row">
+    {if $left}
+    <div class="col-lg-4">
+      <img id="{$imgId}" class="feedback-image" style="max-width: 320px; max-height: 240px;" src="{$imgSrc}">
+    </div>
+
+    <div class="col-lg-8">
+      <div class="panel-body">
+        <p class="lead" {if $id}id="{$id}-body"{/if}>{$feedback}</p>
+      </div>
+    </div>
+    {else}
+    <div class="col-lg-8">
+      <div class="panel-body">
+        <p class="lead" {if $id}id="{$id}-body"{/if}>{$feedback}</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <img id="{$imgId}" class="feedback-image" style="max-width: 320px; max-height: 240px;" src="{$imgSrc}">
+    </div>
+    {/if}
+  </div>
+
+  {else}
+
+  <div class="panel-body">
+    <p class="lead">{$feedback}</p>
+  </div>
+
+  {/if}
+
+</div>
