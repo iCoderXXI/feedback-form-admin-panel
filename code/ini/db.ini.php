@@ -1,4 +1,4 @@
-<?php
+<?php /* ЙЦУКЕН */
 
 require_once PATH_LIB_DBSIMPLE.'/Connect.php';
 

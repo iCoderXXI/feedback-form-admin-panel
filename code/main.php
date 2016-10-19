@@ -2,6 +2,10 @@
 
 define('PATH_TMP', PATH_ROOT.'/temp');
 
+if (!is_dir(PATH_TMP) && !mkdir(PATH_TMP)) {
+	throw new Exception('FATAL: Unable to create temp dir.');
+}
+
 define('IS_LOCAL', is_file(PATH_TMP.'/LOCAL'));
 
 define('PATH_LIB', PATH_CODE.'/lib');
