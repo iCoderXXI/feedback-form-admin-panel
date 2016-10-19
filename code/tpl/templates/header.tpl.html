@@ -1,0 +1,5 @@
+{assign "header_path" "{$CONST.PATH_TEMPLATES}/{$CONST.MODULE}/{$CONST.CTRL}/header.tpl.html"}
+
+{if (is_file($header_path))}
+{include file=$header_path}
+{/if}

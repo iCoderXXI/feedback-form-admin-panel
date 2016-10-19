@@ -1,0 +1,5 @@
+{assign "footer_path" "{$CONST.PATH_TEMPLATES}/{$CONST.MODULE}/{$CONST.CTRL}/footer.tpl.html"}
+
+{if (is_file($footer_path))}
+{include file=$footer_path}
+{/if}

@@ -1,0 +1,5 @@
+{assign "scripts_path" "{$CONST.PATH_TEMPLATES}/{$CONST.MODULE}/{$CONST.CTRL}/scripts.tpl.html"}
+
+{if (is_file($scriptspath))}
+{include file=$scripts_path}
+{/if}

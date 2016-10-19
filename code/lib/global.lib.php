@@ -28,12 +28,17 @@ function print_rd() {
 
 function parseRoute() {
   global $R, $URL_MA;
-  $URL_PATH = $R['q'] ? $R['q'] : '';
+  if (isset($R['q'])) {
+    $URL_PATH = $R['q'];
+  } else {
+    $URL_PATH = '';
+  }
   $URL_MA = explode('/', $URL_PATH);
-  if (empty($URL_MA) || empty($URL_MA[0])) {
+
+  if (empty($URL_MA) || !isset($URL_MA[0]) || empty($URL_MA[0])) {
     $URL_MA[0] = 'default';
   }
-  if (!$URL_MA[1]) {
+  if (!isset($URL_MA[1]) || !$URL_MA[1]) {
     $URL_MA[] = 'default';
   }
 
@@ -51,13 +56,30 @@ function parseRoute() {
   define('FILE_CTRL', PATH_CTRL.'/'.$URL_MA[0].'.php');
   if (!is_file(FILE_CTRL)) show404('Не найден файл контроллера ['.$URL_MA[0].'/'.$URL_MA[1].'/'.$URL_MA[1].'.php'.']');
 
+  define('MODULE', $URL_MA[0]);
+  define('CTRL', $URL_MA[1]);
+
 }
 
 
 
 function ctrlRetPrepare($ret = []) {
+  global $APP_CONFIG;
   if (!isset($ret['viewAs'])) $ret['viewAs'] = 'html';
   if (!isset($ret['data'])) $ret['data'] = [];
+
+  if (isset($APP_CONFIG['PAGE_PARAMS'][MODULE][CTRL])) {
+    foreach($APP_CONFIG['PAGE_PARAMS'][MODULE][CTRL] as $k=>$v) {
+      if (!isset($ret[$k])) {
+        $ret[$k] = $v;
+      }
+    }
+  }
+
+  if (!isset($ret['title'])) {
+    $ret['title'] = MODULE.'/'.CTRL;
+  }
+
   return $ret;
 }
 
@@ -79,9 +101,41 @@ function cfg2dsn() {
 }
 
 
-function initDB() {
 
-  require_once(PATH_LIB.'/db.lib.php');
+if (!function_exists('mb_ucfirst')) {
+	function mb_ucfirst($str,$enc) {
+    $l = mb_strlen($params[0],$enc);
+		$f = mb_strtoupper(mb_substr($params[0],0,1,$enc),$enc);
+		$e = mb_strtolower(mb_substr($params[0],1,$l-1,$enc),$enc);
+		return $f.$e;
+	}
+}
 
-  return $DB;
+
+function getUserDefinedConstants() {
+  $tmp = get_defined_constants(TRUE);
+  return $tmp['user'];
+}
+
+
+
+function imgTypeByFileExt($fileName='') {
+  $imgTypes = array(
+    "jpg"  => "jpeg",
+    "jpeg" => "jpeg",
+    "gif"  => "gif",
+    "png"  => "png",
+  );
+  $ret = FALSE;
+  $extPos = strrpos($fileName,'.');
+  if ($extPos !== FALSE) {
+    $ext = strtolower(substr($fileName,$extPos+1));
+    if (isset($imgTypes[$ext])) { $ret = $imgTypes[$ext];}
+  }
+  return $ret;
+}
+
+
+function prettyJSON($data = [], $pretty = TRUE) {
+  return json_encode($data,JSON_UNESCAPED_UNICODE+$pretty*JSON_PRETTY_PRINT+JSON_NUMERIC_CHECK);
 }

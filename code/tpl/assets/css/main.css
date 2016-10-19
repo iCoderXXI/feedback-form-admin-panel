@@ -1,0 +1,7 @@
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+body { padding-top: 70px; }

@@ -1,0 +1,5 @@
+{assign "body_path" "{$CONST.PATH_TEMPLATES}/{$CONST.MODULE}/{$CONST.CTRL}/body.tpl.html"}
+
+{if (is_file($body_path))}
+{include file=$body_path}
+{/if}

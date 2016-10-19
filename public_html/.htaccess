@@ -1,3 +1,5 @@
+#Option Indexes
+
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d

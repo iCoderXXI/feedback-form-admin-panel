@@ -1,0 +1,12 @@
+{if $appData.data.json}
+
+    <script type="text/JavaScript">
+      let appJSON = {prettyJSON($appData.data.json, FALSE)};
+    </script>
+{/if}
+
+{assign "head_path" "{$CONST.PATH_TEMPLATES}/{$CONST.MODULE}/{$CONST.CTRL}/head.tpl.html"}
+
+{if (is_file($head_path))}
+{include file=$head_path}
+{/if}
