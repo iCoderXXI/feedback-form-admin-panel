@@ -33,7 +33,13 @@ function parseRoute() {
   } else {
     $URL_PATH = '';
   }
+  if (substr($URL_PATH,0,1)=="/") {
+    $URL_PATH = substr($URL_PATH,1);
+  }
+
   $URL_MA = explode('/', $URL_PATH);
+
+  print_rd($URL_MA, $R);
 
   if (empty($URL_MA) || !isset($URL_MA[0]) || empty($URL_MA[0])) {
     $URL_MA[0] = 'default';
