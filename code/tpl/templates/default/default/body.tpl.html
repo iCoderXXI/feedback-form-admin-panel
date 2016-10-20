@@ -6,13 +6,15 @@
   {for $i=1 to 10}
 
   {assign "feedback" "Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>."}
-  {include file="./feedback-panel.tpl.html" title="Basic panel example #{$i}" feedback={$feedback} imgId="img-{$i}" imgSrc=$imgSrc left={$i%2} dt="$i окт. 2016 г."}
+  {include file="./feedback-panel.tpl.html" title="Basic panel example #{$i}" feedback={$feedback} imgId="img-{$i}" imgSrc=$imgSrc left={$i%2} dt="$i окт. 2016 г." approved={$i%2} id={$i}}
 
   {/for}
 
+  {if !$CONST.IS_ADMIN}
   {assign "feedback" {$appData.data.li}}
   {include file="./feedback-panel.tpl.html" id="feedback-preview" title="Предварительный просмотр" feedback="" imgId="preview-img" imgSrc=$imgSrc left={$i%2}}
 
   {include file="./form.tpl.html"}
+  {/if}
 
 </div>

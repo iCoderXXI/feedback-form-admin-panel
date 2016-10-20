@@ -13,3 +13,13 @@ body { padding-top: 70px; }
 .hidden {
   display: none;
 }
+
+.banned {
+  border-color: #fdd;
+  background-color: #fee;
+}
+
+.approved {
+  border-color: #dfd;
+  background-color: #efe;
+}

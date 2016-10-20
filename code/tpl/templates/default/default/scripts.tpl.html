@@ -6,6 +6,8 @@
 <script src="assets/js/fileinput.min.js"></script>
 <script src="assets/js/locales/ru.js"></script>
 
+<script src="assets/js/plugins/bootstrap-switch.min.js"></script>
+
 <style>
   .file-upload-indicator,
   .file-actions,
@@ -18,6 +20,9 @@
 
 <script>
 $(document).ready(function() {
+
+  $(".bootstrap-switch").bootstrapSwitch().removeClass('hidden');
+
 
   $("#input-dim-2").fileinput({
       uploadUrl: "/ajax/image-upload",
@@ -112,6 +117,18 @@ $(document).ready(function() {
         },
       });
     }
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('input.bootstrap-switch').on('switchChange.bootstrapSwitch', function(event, state) {
+    let id = $(this).data('id');
+    if (state) {
+      $('#'+id+'-feedback').removeClass('banned').addClass('approved');
+    } else {
+      $('#'+id+'-feedback').addClass('banned').removeClass('approved');
+    }
+
   });
 
   //-----------------------------------------------------------------------

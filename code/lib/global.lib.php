@@ -39,7 +39,7 @@ function parseRoute() {
 
   $URL_MA = explode('/', $URL_PATH);
 
-  print_rd($URL_MA, $R);
+  //print_rd($URL_MA, $R);
 
   if (empty($URL_MA) || !isset($URL_MA[0]) || empty($URL_MA[0])) {
     $URL_MA[0] = 'default';

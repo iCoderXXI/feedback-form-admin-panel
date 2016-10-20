@@ -1,14 +1,34 @@
-            <div class="well">
+            <div class="well {if $CONST.IS_ADMIN}{if !$approved}banned{else}approved{/if}"{/if} {if $id}id="{$id}-feedback"{/if}>
               <div class="media">
                 <div class="media-left">
                   <img id="{$imgId}" src="{$imgSrc}" class="media-object" style="width:100px">
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">
-                    <span {if $id}id="{$id}-title"{/if}>{$title}</span> 
-                    <small {if !$dt}class="hidden"{/if} {if $id}id="{$id}-dt-container"{/if}><i>Отзыв оставлен <span {if $id}id="{$id}-dt"{/if}>{$dt}</span></i></small>
+                    <div class="row">
+                      <div class="col-lg-10">
+                        <span {if $id}id="{$id}-title"{/if}>{$title}</span>
+                        <small {if !$dt}class="hidden"{/if} {if $id}id="{$id}-dt-container"{/if}><i>Отзыв оставлен <span {if $id}id="{$id}-dt"{/if}>{$dt}</span></i></small>
+                      </div>
+                      {if $CONST.IS_ADMIN}
+                      <div class="col-lg-2">
+                        <div class="pull-right">
+                          <input  {if $id}data-id="{$id}"{/if} type="checkbox" class="bootstrap-switch hidden" {if $approved}checked{/if} data-size="mini" data-on-color="success" data-off-color="danger" data-on-text="Ok" data-off-text="(x)">
+                        </div>
+                      </div>
+                      {/if}
+                    </div>
                   </h4>
+                  {if !$CONST.IS_ADMIN}
                   <p {if $id}id="{$id}-body"{/if}>{$feedback}</p>
+                  {else}
+                  <div class="input-group">
+                    <textarea class="form-control" style="height: 80px;" {if $id}id="{$id}-feedback"{/if}>{$feedback}</textarea>
+                    <span class="input-group-addon">
+                      <button type="button" class="btn btn-default" disabled {if $id}data-id="{$id}"{/if}>Сохранить</button>
+                    </span>
+                  </div><!-- /input-group -->
+                  {/if}
                 </div>
               </div>
             </div>
