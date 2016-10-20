@@ -12,7 +12,7 @@ function isAdmin() {
 	return (isset($_SESSION['adminAuth']) && time()-$_SESSION['adminAuth']<ADMIN_AUTH_TIMEOUT);
 }
 
-define('SESSION_NAME', str_replace('beejee2016tz'));
+define('SESSION_NAME', 'beejee2016tz');
 define('SESSION_SALT', 'MW<ERdfo;jR:OJ5wE4%tyuAi#08ac;i;aASDj2#ewfsaqew23!#@$QR243qwe66tWErbvas');
 define('SESSION_DATA_KEY_NAME', 'DATA_KEY');
 define('PATH_SESSION_SAVE', PATH_TMP.'/sess');
