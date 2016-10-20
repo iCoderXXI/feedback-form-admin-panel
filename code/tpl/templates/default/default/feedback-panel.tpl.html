@@ -13,21 +13,21 @@
                       {if $CONST.IS_ADMIN}
                       <div class="col-lg-2">
                         <div class="pull-right">
-                          <input  {if $id}data-id="{$id}"{/if} type="checkbox" class="bootstrap-switch hidden" {if $approved}checked{/if} data-size="mini" data-on-color="success" data-off-color="danger" data-on-text="Ok" data-off-text="(x)">
+                          <input  {if $id}id="{$id}-switch" data-id="{$id}"{/if} type="checkbox" class="bootstrap-switch hidden" {if $approved}checked{/if} data-size="mini" data-on-color="success" data-off-color="danger" data-on-text="Ok" data-off-text="(x)">
                         </div>
                       </div>
                       {/if}
                     </div>
                   </h4>
-                  {if !$CONST.IS_ADMIN}
-                  <p {if $id}id="{$id}-body"{/if}>{$feedback}</p>
-                  {else}
+                  {if $CONST.IS_ADMIN}
                   <div class="input-group">
-                    <textarea class="form-control" style="height: 80px;" {if $id}id="{$id}-feedback"{/if}>{$feedback}</textarea>
+                    <textarea class="form-control feedback-input" style="height: 80px;" {if $id}id="{$id}-feedback-input" data-id="{$id}"{/if}>{$feedback}</textarea>
                     <span class="input-group-addon">
-                      <button type="button" class="btn btn-default" disabled {if $id}data-id="{$id}"{/if}>Сохранить</button>
+                      <button type="button" class="btn btn-default save-btn" disabled {if $id}id="{$id}-save-btn" data-id="{$id}"{/if}>Сохранить</button>
                     </span>
                   </div><!-- /input-group -->
+                  {else}
+                  <p {if $id}id="{$id}-body"{/if}>{$feedback}</p>
                   {/if}
                 </div>
               </div>

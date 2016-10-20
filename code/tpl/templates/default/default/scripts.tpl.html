@@ -70,7 +70,6 @@ $(document).ready(function() {
   //-----------------------------------------------------------------------
 
   $('#feedback').on('input', function() {
-    console.log('Feedback input event');
     feedback2preview();
   });
 
@@ -128,7 +127,38 @@ $(document).ready(function() {
     } else {
       $('#'+id+'-feedback').addClass('banned').removeClass('approved');
     }
+    $(this).parent().parent().addClass('fld-changed');
+    enableSaveBtn(id);
+  });
 
+  //-----------------------------------------------------------------------
+
+  $('.feedback-input').on('input', function() {
+    let id = $(this).data('id');
+    $(this).addClass('fld-changed');
+    enableSaveBtn(id);
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('.save-btn').on('click', function() {
+    let id = $(this).data('id');
+    let feedback = $('#'+id+'-feedback-input').val();
+    let approved = $('#'+id+'-switch').prop('checked');
+    ajax({
+      type: 'POST',
+      url: 'ajax/feedback-edit',
+      data: { id: id, feedback: feedback, approved: approved },
+      success: function(data) {
+        $(this).prop('disabled', true);
+        if (data.success) {
+          //location.reload();
+          showNotice('Отзыв сохранен.');
+        } else {
+          showAlert(data.message);
+        }
+      },
+    });
   });
 
   //-----------------------------------------------------------------------
@@ -167,8 +197,26 @@ $(document).ready(function() {
     $('#alert-container').fadeIn(1000);
     setTimeout(function() {
       $('#alert-container').fadeOut(1000);
-    }, 2500);
+    }, 5000);
   }
+
+
+  function showNotice(msg) {
+    $('#notice-msg').html(msg);
+    $('#notice-container').fadeIn(1000);
+    setTimeout(function() {
+      $('#notice-container').fadeOut(1000);
+    }, 5000);
+  }
+
+
+  function enableSaveBtn(id) {
+    let btn = $('#'+id+'-save-btn')
+    if ($(btn).prop('disabled')) {
+      $(btn).prop('disabled',false).addClass('btn-success').removeClass('btn-default');
+    }
+  }
+
 
   function ajax(data) {
     let prep = {
