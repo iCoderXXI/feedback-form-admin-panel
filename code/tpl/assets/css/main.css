@@ -9,3 +9,7 @@ body { padding-top: 70px; }
 .panel, .navbar {
   box-shadow: 3px 3px 10px grey;
 }
+
+.hidden {
+  display: none;
+}

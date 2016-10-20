@@ -8,7 +8,9 @@
 
 <style>
   .file-upload-indicator,
-  .file-actions
+  .file-actions,
+  .fileinput-remove,
+  .file-caption-main
   {
     display: none;
   }
@@ -16,6 +18,7 @@
 
 <script>
 $(document).ready(function() {
+
   $("#input-dim-2").fileinput({
       uploadUrl: "/ajax/image-upload",
       allowedFileExtensions: ["jpeg", "jpg", "png", "gif"],
@@ -33,17 +36,87 @@ $(document).ready(function() {
         showZoom: false,
       }
 
-  //}).on('fileimageloaded', function(event, previewId) {
-  //  console.log("fileimageloaded");
+  }).on('fileimageloaded', function(event, previewId) {
+    img2preview();
   }).on('filecleared', function(event) {
     imgSrc = "assets/img/placeholder-320x240.png";
     $('#preview-img').attr('src', imgSrc);
   });
 
+  //-----------------------------------------------------------------------
+
   $('#preview-btn').on('click', function() {
-    //let blob = $('#input-dim-2').fileinput('getFileStack');
-    //let urlCreator = window.URL || window.webkitURL;
-    //let imgSrc = urlCreator.createObjectURL(new Blob([blob], { type: "image/jpeg" }));
+
+    img2preview();
+    feedback2preview();
+    name2preview();
+    date2preview();
+
+    //$('#feedback-preview').fadeIn(2000);
+
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('#submit-btn').on('click', function() {
+    alert('Yo!');
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('#feedback').on('input', function() {
+    console.log('Feedback input event');
+    feedback2preview();
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('#name').on('keyup', function() {
+    name2preview();
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('#logout-btn').on('click', function() {
+    ajax({
+      type: 'POST',
+      url: 'ajax/admin-logout',
+      success: function(data) {
+        if (data.success) {
+          location.reload();
+        } else {
+          showAlert(data.message);
+        }
+      },
+    });
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('#login-btn').on('click', function() {
+    let pwd = $('#login-pwd').val();
+
+    if (pwd.length<3) {
+      showAlert('Пароль должен содержать не менее 3-х символов!');
+    } else {
+      ajax({
+        type: 'POST',
+        url: 'ajax/admin-login',
+        data: { pwd: pwd },
+        success: function(data) {
+          if (data.success) {
+            location.reload();
+          } else {
+            showAlert(data.message);
+          }
+        },
+      });
+    }
+  });
+
+  //-----------------------------------------------------------------------
+
+  function img2preview() {
     let imgSrc = $('.file-preview-image').attr('src');
 
     if (!imgSrc) {
@@ -51,18 +124,54 @@ $(document).ready(function() {
     }
     $('#preview-img').attr('src', imgSrc);
 
+    date2preview()
+  }
 
-    let feedback = $('#feedback').html().replace(/\n/g, "<br />");
+  function feedback2preview() {
+    let feedback = $('#feedback').val().replace(/\n/g, "<br />");
     $('#feedback-preview-body').html(feedback);
+
+    date2preview()
+  }
+
+  function name2preview() {
     $('#feedback-preview-title').html($('#name').val());
 
-    $('#feedback-preview').show();
-    //$("#input-dim-2").fileinput('upload');
+    date2preview()
+  }
 
-  });
+  function date2preview() {
+    $('#feedback-preview-dt').html('сегодня');
+    $('#feedback-preview-dt-container').removeClass('hidden');
+  }
 
-  $('#submit-btn').on('click', function() {
-    alert('Yo!');
-  });
+  function showAlert(msg) {
+    $('#alert-msg').html(msg);
+    $('#alert-container').fadeIn(1000);
+    setTimeout(function() {
+      $('#alert-container').fadeOut(1000);
+    }, 2500);
+  }
+
+  function ajax(data) {
+    let prep = {
+      type: 'GET',
+      error: function(jqXHR, textStatus, error) {
+        showAlert(textStatus);
+      },
+      statusCode: {
+        404: function() {
+          showAlert( "404: задан неверный адрес для проверки пароля." );
+        }
+      }
+    };
+
+    $.each( data, function( key, value ) {
+      prep[key] = value;
+    });
+
+    $.ajax(prep);
+  }
+
 });
 </script>

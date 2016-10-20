@@ -6,7 +6,7 @@ function sanitizeFN($s = '') {
 
 function show404($msg = 'Something wrong!') {
   header("HTTP/1.1 404 Not Found");
-  die($msg);
+  die('404: '.$msg);
 }
 
 function print_rd() {
@@ -50,10 +50,10 @@ function parseRoute() {
 
   if (!is_dir(PATH_MODULE)) show404('Не найдена директория контроллера ['.$URL_MA[0].']');
 
-  define('PATH_CTRL', PATH_MODULE.'/'.$URL_MA[0]);
+  define('PATH_CTRL', PATH_MODULE.'/'.$URL_MA[1]);
   if (!is_dir(PATH_CTRL)) show404('Не найдена директория контроллера ['.$URL_MA[0].'/'.$URL_MA[1].']');
 
-  define('FILE_CTRL', PATH_CTRL.'/'.$URL_MA[0].'.php');
+  define('FILE_CTRL', PATH_CTRL.'/'.$URL_MA[1].'.php');
   if (!is_file(FILE_CTRL)) show404('Не найден файл контроллера ['.$URL_MA[0].'/'.$URL_MA[1].'/'.$URL_MA[1].'.php'.']');
 
   define('MODULE', $URL_MA[0]);

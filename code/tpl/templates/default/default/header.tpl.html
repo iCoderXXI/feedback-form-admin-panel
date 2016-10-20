@@ -9,16 +9,32 @@
 
             <div class="col-lg-3">
 
+              {if $CONST.IS_ADMIN}
+
+              <div class="input-group pull-right">
+                <button type="button" class="btn btn-success" id="logout-btn">Выход</button>
+              </div><!-- /input-group -->
+
+              {else}
+
               <div class="input-group">
                 <span class="input-group-addon">
                   Админ:
                 </span>
-                <input type="password" placeholder="Пароль" class="form-control">
+                <input type="password" placeholder="Пароль" class="form-control" id="login-pwd" value="123">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-success">Вход</button>
+                  <button type="button" class="btn btn-success" id="login-btn">Вход</button>
                 </span>
               </div><!-- /input-group -->
 
+              {/if}
+
+            </div>
+          </div>
+          <div class="row" id="alert-container" style="display: none;">
+            <div class="alert alert-danger" style="text-align: center;">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Внимание!</strong> <span id="alert-msg"></span>
             </div>
           </div>
 

@@ -19,14 +19,17 @@ define('PATH_INI', PATH_CODE.'/ini');
 
 define('ADMIN_EMAIL', 'iCoder.XXI@gmail.com');
 
+require_once(PATH_LIB.'/global.lib.php');
+require_once(PATH_INI.'/sessions.ini.php');
+
 $R = $_REQUEST;
 $APP_CONFIG = include(PATH_INI.'/app.ini.php');
-
-require_once(PATH_LIB.'/global.lib.php');
 
 parseRoute();
 
 $APP_RET = include(FILE_CTRL);
+
+session_write_close();
 
 if (!$APP_RET['viewAs']){
   throw new Exception('Missing [viewAs] in ret of '.MODULE.'/'.CTRL.'.');
