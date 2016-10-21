@@ -21,8 +21,9 @@
 <script>
 $(document).ready(function() {
 
-  $(".bootstrap-switch").bootstrapSwitch().removeClass('hidden');
+  let submitCode = [Date.now(),Math.ceil(Math.random()*10000+10000)].join('');
 
+  $(".bootstrap-switch").bootstrapSwitch().removeClass('hidden');
 
   $("#input-dim-2").fileinput({
       uploadUrl: "/ajax/image-upload",
@@ -35,6 +36,7 @@ $(document).ready(function() {
       resizeImage: true,
       resizePreference: 'height',
       showUpload: false,
+      uploadExtraData: { id: submitCode },
       fileActionSettings: {
         showUpload: false,
         showRemove: false,
@@ -44,7 +46,7 @@ $(document).ready(function() {
   }).on('fileimageloaded', function(event, previewId) {
     img2preview();
   }).on('filecleared', function(event) {
-    imgSrc = "assets/img/placeholder-320x240.png";
+    let imgSrc = "assets/img/placeholder-320x240.png";
     $('#preview-img').attr('src', imgSrc);
   });
 
@@ -57,14 +59,33 @@ $(document).ready(function() {
     name2preview();
     date2preview();
 
-    //$('#feedback-preview').fadeIn(2000);
-
   });
 
   //-----------------------------------------------------------------------
 
   $('#submit-btn').on('click', function() {
-    alert('Yo!');
+    ajax({
+      type: 'POST',
+      url: 'ajax/feedback-submit',
+      data: { id: submitCode, }
+      success: function(data) {
+        if (data.success) {
+          let filesCount = $('#input-id').fileinput('getFilesCount');
+          if (filesCount>0) {
+            $('#input-dim-2').fileinput('upload').fileinput('disable');
+            $('#input-id').on('fileuploaded', function(event, data, previewId, index) {
+                var form = data.form, files = data.files, extra = data.extra,
+                    response = data.response, reader = data.reader;
+                //console.log('File uploaded triggered');
+                location.reload();
+            });
+          }
+          //location.reload();
+        } else {
+          showAlert(data.message);
+        }
+      },
+    });
   });
 
   //-----------------------------------------------------------------------
@@ -75,7 +96,7 @@ $(document).ready(function() {
 
   //-----------------------------------------------------------------------
 
-  $('#name').on('keyup', function() {
+  $('#name').on('input', function() {
     name2preview();
   });
 
@@ -149,6 +170,7 @@ $(document).ready(function() {
       type: 'POST',
       url: 'ajax/feedback-edit',
       data: { id: id, feedback: feedback, approved: approved },
+      msg404: "404: задан неверный адрес для сохранения изменений.",
       success: function(data) {
         $(this).prop('disabled', true);
         if (data.success) {
@@ -226,7 +248,7 @@ $(document).ready(function() {
       },
       statusCode: {
         404: function() {
-          showAlert( "404: задан неверный адрес для проверки пароля." );
+          showAlert( data.msg404 || "404: задан неверный адрес для проверки пароля." );
         }
       }
     };
