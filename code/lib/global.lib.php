@@ -145,3 +145,17 @@ function imgTypeByFileExt($fileName='') {
 function prettyJSON($data = [], $pretty = TRUE) {
   return json_encode($data,JSON_UNESCAPED_UNICODE+$pretty*JSON_PRETTY_PRINT+JSON_NUMERIC_CHECK);
 }
+
+function imgMime2Ext($mime) {
+  $m2e = [
+    'image/gif' => 'gif',
+    'image/png' => 'png',
+    'image/jpeg' => 'jpg',
+  ];
+  return isset($m2e[$mime]) ? $m2e[$mime] : 'jpg';
+}
+
+
+function fbImgUrl($img) {
+  return URL_FEEDBACKS.'/'.$img;
+}

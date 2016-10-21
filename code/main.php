@@ -1,15 +1,32 @@
 <?php
 
-define('PATH_TMP', PATH_ROOT.'/temp');
+mb_internal_encoding("UTF-8");
 
-if (!is_dir(PATH_TMP) && !mkdir(PATH_TMP)) {
+define('PATH_TMP', PATH_ROOT.'/temp');
+if (!is_dir(PATH_TMP) && !mkdir(PATH_TMP, 0777)) {
 	throw new Exception('FATAL: Unable to create temp dir.');
 }
+
+define('PATH_RESOURCES', PATH_ROOT.'/resources');
+if (!is_dir(PATH_RESOURCES) && !mkdir(PATH_RESOURCES, 0777)) {
+	throw new Exception('FATAL: Unable to create resources dir.');
+}
+
+define('PATH_FEEDBACKS', PATH_RESOURCES.'/feedbacks');
+if (!is_dir(PATH_FEEDBACKS) && !mkdir(PATH_FEEDBACKS, 0777)) {
+	throw new Exception('FATAL: Unable to create feedbacks dir.');
+}
+
+define('URL_FEEDBACKS', 'assets/feedbacks');
 
 define('IS_LOCAL', is_file(PATH_TMP.'/LOCAL'));
 
 define('PATH_LIB', PATH_CODE.'/lib');
 define('PATH_TPL', PATH_CODE.'/tpl');
+define('PATH_ASSETS', PATH_TPL.'/assets');
+define('PATH_IMG', PATH_ASSETS.'/img');
+define('PATH_FEEDBACK_IMG', PATH_TMP.'/img');
+
 
 define('PATH_LIB_VENDOR', PATH_LIB.'/vendor');
 define('PATH_LIB_SMARTY', PATH_LIB_VENDOR.'/Smarty');

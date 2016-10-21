@@ -1,14 +1,15 @@
 
 <div class="wrapper" id="feedback-list">
 
+  {assign "fb" $appData.data.fb}
+
   {assign "imgSrc" "assets/img/placeholder-320x240.png"}
 
-  {for $i=1 to 10}
+  {foreach from=$fb item="f"}
 
-  {assign "feedback" "Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>."}
-  {include file="./feedback-panel.tpl.html" title="Basic panel example #{$i}" feedback={$feedback} imgId="img-{$i}" imgSrc=$imgSrc left={$i%2} dt="$i окт. 2016 г." approved={$i%2} id={$i}}
+  {include file="./feedback-panel.tpl.html" title="{$f.name}" feedback="{$f.feedback}" imgId="img-{$fb.id}" imgSrc="{fbImgUrl($f.img)}" dt="{$f.dt}" approved="{$f.approved}" id="{$f.id}"}
 
-  {/for}
+  {/foreach}
 
   {if !$CONST.IS_ADMIN}
   {assign "feedback" {$appData.data.li}}
