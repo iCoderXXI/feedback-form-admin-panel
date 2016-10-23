@@ -26,7 +26,7 @@ if (isset($R['orderBy']) && isset($allowedOrderBy[$R['orderBy']])) {
       $R['orderDirection'] = 'ASC';
     }
   } else {
-      $_SESSION['orderDirection'] = 'ASC';
+      $R['orderDirection'] = 'ASC';
   }
   $redirect = TRUE;
   $_SESSION['orderBy'] = $orderBy;
