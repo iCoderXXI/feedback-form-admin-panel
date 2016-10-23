@@ -9,7 +9,7 @@ $feedbackID = FALSE;
 
 $code = isset($R['code']) && $R['code']>0 ? $R['code'] : FALSE;
 
-if (mb_strlen($name)<3 || count(explode(' '))>2) {
+if (mb_strlen($name)<3 || count(explode(' ',$name))>2) {
   $errMsg = '* Представьтесь пожалуйста!';
   $errFldID = 'name';
 } else if (!preg_match("/.+@.+\..+/i", $email)) {
@@ -33,7 +33,7 @@ if (mb_strlen($name)<3 || count(explode(' '))>2) {
     $_SESSION['feedbacks'][$code] = $feedbackID;
     $message = 'Благодарим Вас за отзыв!';
   } else {
-    $errMsg = 'Не удалось сохранить отзыв!';
+    $errMsg = '* Не удалось сохранить отзыв!';
   }
 }
 

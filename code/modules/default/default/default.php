@@ -10,6 +10,13 @@ $orderDirection = "DESC";
 $allowedOrderDirection = ['ASC' => 1, 'DESC' => 1];
 $redirect = FALSE;
 
+if (isset($S['orderBy'])) {
+  $_SESSION['orderBy'] = $orderBy;
+}
+if (isset($S['orderDirection'])) {
+  $_SESSION['orderDirection'] = $orderDirection;
+}
+
 if (isset($R['orderBy']) && isset($allowedOrderBy[$R['orderBy']])) {
   $orderBy = $R['orderBy'];
   if ($S['orderBy'] == $orderBy) {
@@ -18,6 +25,8 @@ if (isset($R['orderBy']) && isset($allowedOrderBy[$R['orderBy']])) {
     } else {
       $R['orderDirection'] = 'ASC';
     }
+  } else {
+      $_SESSION['orderDirection'] = 'ASC';
   }
   $redirect = TRUE;
   $_SESSION['orderBy'] = $orderBy;
