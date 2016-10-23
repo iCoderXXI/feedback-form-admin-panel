@@ -15,7 +15,7 @@
             <div class="col-lg-7" style="text-align: center;">
               {if $CONST.ORDER_BY=='name'}
               <button type="button" class="btn btn-primary btn-order-by" data-fld="name">
-                Имя <span class="badge">{if $CONST.ORDER_DIRECTION=='DESC'}&darr;{else}&uarr;{/if}</span>
+                Имя <span class="badge">{if $CONST.ORDER_DIRECTION=='ASC'}&darr;{else}&uarr;{/if}</span>
               </button>
               {else}
               <button type="button" class="btn btn-default btn-order-by" data-fld="name">
@@ -25,7 +25,7 @@
 
               {if $CONST.ORDER_BY=='email'}
               <button type="button" class="btn btn-primary btn-order-by" data-fld="email" >
-                E-Mail <span class="badge">{if $CONST.ORDER_DIRECTION=='DESC'}&darr;{else}&uarr;{/if}</span>
+                E-Mail <span class="badge">{if $CONST.ORDER_DIRECTION=='ASC'}&darr;{else}&uarr;{/if}</span>
               </button>
               {else}
               <button type="button" class="btn btn-default btn-order-by" data-fld="email">
@@ -35,7 +35,7 @@
 
               {if $CONST.ORDER_BY=='dt'}
               <button type="button" class="btn btn-primary btn-order-by" data-fld="dt">
-                Дата <span class="badge">{if $CONST.ORDER_DIRECTION=='DESC'}&darr;{else}&uarr;{/if}</span>
+                Дата <span class="badge">{if $CONST.ORDER_DIRECTION=='ASC'}&darr;{else}&uarr;{/if}</span>
               </button>
               {else}
               <button type="button" class="btn btn-default btn-order-by" data-fld="dt">

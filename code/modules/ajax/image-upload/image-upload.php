@@ -16,6 +16,7 @@ if (isset($_FILES['imgupload']) && $code && $feedbackID) {
           $errMsg = '* Не удалось сохранить информацию об изображении.';
       } else {
         $message = 'Изображение успешно сохранено.';
+        unset($_SESSION['feedbacks'][$code]);
       }
 
     } else {

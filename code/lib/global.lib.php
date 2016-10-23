@@ -162,7 +162,9 @@ function fbImgUrl($img) {
 
 
 function redirectTo($url) {
+  global $R;
   session_write_close();
   header('Location: '.$url);
+  //print_rd($_SESSION, $R);
   exit;
 }

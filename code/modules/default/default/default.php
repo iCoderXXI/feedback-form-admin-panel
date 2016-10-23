@@ -1,26 +1,26 @@
 <?php
 
+//print_rd($R, $_SESSION);
 
 require_once(PATH_LIB.'/db.lib.php');
 
-$S = $_SESSION;
 $orderBy = 'dt';
 $allowedOrderBy = ['dt' => 1, 'name' => 1, 'email' => 1];
 $orderDirection = "DESC";
 $allowedOrderDirection = ['ASC' => 1, 'DESC' => 1];
 $redirect = FALSE;
 
-if (isset($S['orderBy'])) {
+if (!isset($_SESSION['orderBy'])) {
   $_SESSION['orderBy'] = $orderBy;
 }
-if (isset($S['orderDirection'])) {
+if (!isset($_SESSION['orderDirection'])) {
   $_SESSION['orderDirection'] = $orderDirection;
 }
 
 if (isset($R['orderBy']) && isset($allowedOrderBy[$R['orderBy']])) {
   $orderBy = $R['orderBy'];
-  if ($S['orderBy'] == $orderBy) {
-    if ($S['orderDirection'] == 'ASC') {
+  if ($_SESSION['orderBy'] == $orderBy) {
+    if ($_SESSION['orderDirection'] == 'ASC') {
       $R['orderDirection'] = 'DESC';
     } else {
       $R['orderDirection'] = 'ASC';
@@ -30,22 +30,21 @@ if (isset($R['orderBy']) && isset($allowedOrderBy[$R['orderBy']])) {
   }
   $redirect = TRUE;
   $_SESSION['orderBy'] = $orderBy;
-} elseif (isset($S['orderBy']) && isset($allowedOrderBy[$S['orderBy']])) {
-  $orderBy = $S['orderBy'];
+} elseif (isset($_SESSION['orderBy']) && isset($allowedOrderBy[$_SESSION['orderBy']])) {
+  $orderBy = $_SESSION['orderBy'];
 }
 
 if (isset($R['orderDirection']) && isset($allowedOrderDirection[$R['orderDirection']])) {
   $orderDirection = $R['orderDirection'];
   $_SESSION['orderDirection'] = $orderDirection;
   $redirect = TRUE;
-} elseif (isset($S['orderDirection']) && isset($allowedOrderDirection[$S['orderDirection']])) {
-  $orderDirection = $S['orderDirection'];
+} elseif (isset($_SESSION['orderDirection']) && isset($allowedOrderDirection[$_SESSION['orderDirection']])) {
+  $orderDirection = $_SESSION['orderDirection'];
 }
 
 if ($redirect) {
   redirectTo('/');
 }
-//print_rd($R, $orderBy, $orderDirection);
 
 if (IS_ADMIN) {
   $fb = $DB->select('SELECT id AS ARRAY_KEY, f.* FROM feedback f ORDER BY '.$orderBy.' '.$orderDirection);
