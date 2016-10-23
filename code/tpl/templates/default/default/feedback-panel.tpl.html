@@ -8,7 +8,13 @@
                     <div class="row">
                       <div class="col-lg-10">
                         <span {if $id}id="{$id}-title"{/if}>{$title}</span>
-                        <small {if !$dt}class="hidden"{/if} {if $id}id="{$id}-dt-container"{/if}><i>Отзыв оставлен <span {if $id}id="{$id}-dt"{/if}>{$dt}</span></i></small>
+                        <small {if !$dt}class="hidden"{/if} {if $id}id="{$id}-dt-container"{/if}>
+                          {if $CONST.IS_ADMIN}({$email}){/if}
+                          <i>Отзыв оставлен <span {if $id}id="{$id}-dt"{/if}>{$dt}</span></i>
+                          {if $edited}
+                          <b>изменен администратором</b>
+                          {/if}
+                        </small>
                       </div>
                       {if $CONST.IS_ADMIN}
                       <div class="col-lg-2">

@@ -1,32 +1,58 @@
 <?php /* ЙЦУКЕН */
 
 $errMsg = FALSE;
-
-$errMsg = 'Feedback edit functionality is not ready yet!';
+$message = "Изменения сохранены";
 
 if (!IS_ADMIN) {
   $errMsg = 'Палехче дружище!';
 } else {
 
-  require_once(PATH_LIB.'/db.lib.php');
+  if (!isset($R['id']) || $R['id']<1) {
 
-  //$R['id']
-  //$R['feedback']
-  //$R['approved']
-  $data = [
-    'approved' => $R['approved'],
-  ]
-  $pfb = $DB->selectCell('SELECT feedback FROM feedback WHERE id = ?d', $R['id']);
+    $errMsg = "На задано поле id";
 
-  if ($R['feedback'] !== $pfb) {
-    $data['feedback'] = $R['feedback'];
-    $data['edited'] = 1;
+  } elseif (!isset($R['feedback']) && !isset($R['approve'])) {
+
+    $errMsg = "Нечего менять...";
+
+  } else {
+
+    require_once(PATH_LIB.'/db.lib.php');
+
+    //$R['id']
+    //$R['feedback']
+    //$R['approved']
+
+    $pfb = $DB->selectRow('SELECT approved, feedback FROM feedback WHERE id = ?d', $R['id']);
+
+    if ($R['approved'] == $pfb['approved'] && $R['feedback'] == $pfb) {
+
+      $errMsg = "Данные не изменились...";
+
+    } else {
+      $data = [
+        'approved' => $R['approved'],
+      ];
+
+      //print_rd($pfb, $R);
+
+      if ($R['feedback'] !== $pfb['feedback']) {
+        $data['feedback'] = $R['feedback'];
+        $data['edited'] = 1;
+      }
+
+      try {
+        //print_rd($R, $pfb, $data);
+        $DB->query('UPDATE feedback SET ?a WHERE id = ?d', $data, $R['id']);
+      } catch(Exception $e) {
+        $errMsg = "FATAL: ".$e->getMessage();
+      }
+
+    }
   }
-
-  $DB->query('UPDATE feedback SET ?a', $data);
 }
 
-return ctrlRetPrepare(
+$ret = ctrlRetPrepare(
   [
     'data' => [
       'message' => $errMsg ? $errMsg : $message,
@@ -36,3 +62,5 @@ return ctrlRetPrepare(
     'viewAs' => 'json',
   ]
 );
+
+return $ret;

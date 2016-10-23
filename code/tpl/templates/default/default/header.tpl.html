@@ -3,9 +3,47 @@
         <div class="header">
 
           <div class="row vertical-align">
-            <div class="col-lg-9">
+            <div class="col-lg-2">
+              {if !$CONST.IS_ADMIN}
+
+              <button type="button" class="btn btn-info" id="down">Оставить отзыв</button>
+              {else}
               <h3>Отзывы</h3>
+              {/if}
             </div>
+
+            <div class="col-lg-7" style="text-align: center;">
+              {if $CONST.ORDER_BY=='name'}
+              <button type="button" class="btn btn-primary btn-order-by" data-fld="name">
+                Имя <span class="badge">{if $CONST.ORDER_DIRECTION=='DESC'}&darr;{else}&uarr;{/if}</span>
+              </button>
+              {else}
+              <button type="button" class="btn btn-default btn-order-by" data-fld="name">
+                Имя <span class="badge">&times;</span>
+              </button>
+              {/if}
+
+              {if $CONST.ORDER_BY=='email'}
+              <button type="button" class="btn btn-primary btn-order-by" data-fld="email" >
+                E-Mail <span class="badge">{if $CONST.ORDER_DIRECTION=='DESC'}&darr;{else}&uarr;{/if}</span>
+              </button>
+              {else}
+              <button type="button" class="btn btn-default btn-order-by" data-fld="email">
+                E-Mail <span class="badge">&times;</span>
+              </button>
+              {/if}
+
+              {if $CONST.ORDER_BY=='dt'}
+              <button type="button" class="btn btn-primary btn-order-by" data-fld="dt">
+                Дата <span class="badge">{if $CONST.ORDER_DIRECTION=='DESC'}&darr;{else}&uarr;{/if}</span>
+              </button>
+              {else}
+              <button type="button" class="btn btn-default btn-order-by" data-fld="dt">
+                Дата <span class="badge">&times;</span>
+              </button>
+              {/if}
+            </div>
+
 
             <div class="col-lg-3">
 

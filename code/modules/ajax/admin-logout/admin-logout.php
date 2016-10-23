@@ -5,8 +5,9 @@ if (IS_ADMIN) {
   $success = TRUE;
   $message = "До свидания!";
 } else {
-  $success = FALSE;
-  $message = "Ендпоинт сей теребишь не напрасно ли ты???";
+  adminAuthClear();
+  $success = TRUE;
+  $message = "Однако, прощайте!";
 }
 
 return ctrlRetPrepare(

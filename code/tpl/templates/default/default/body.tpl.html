@@ -7,7 +7,7 @@
 
   {foreach from=$fb item="f"}
 
-  {include file="./feedback-panel.tpl.html" title="{$f.name}" feedback="{$f.feedback}" imgId="img-{$fb.id}" imgSrc="{fbImgUrl($f.img)}" dt="{$f.dt}" approved="{$f.approved}" id="{$f.id}"}
+  {include file="./feedback-panel.tpl.html" title="{$f.name}" email="{$f.email}" feedback="{$f.feedback}" imgId="img-{$fb.id}" imgSrc="{fbImgUrl($f.img)}" dt="{$f.dt}" approved="{$f.approved}" id="{$f.id}" edited="{$f.edited}"}
 
   {/foreach}
 

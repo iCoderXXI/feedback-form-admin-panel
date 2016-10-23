@@ -159,3 +159,10 @@ function imgMime2Ext($mime) {
 function fbImgUrl($img) {
   return URL_FEEDBACKS.'/'.$img;
 }
+
+
+function redirectTo($url) {
+  session_write_close();
+  header('Location: '.$url);
+  exit;
+}

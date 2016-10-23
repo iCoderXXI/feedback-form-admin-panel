@@ -17,6 +17,10 @@
   {
     display: none;
   }
+
+  .badge {
+    font-weight: bolder;
+  }
 </style>
 
 
@@ -27,6 +31,9 @@ $(document).ready(function() {
   let msgFadeDelay = 3000;
   let msgFadeInDelay = 500;
   let msgFadeOutDelay = 500;
+
+  let orderBy = 'dt';
+  let orderDirection = "DESC";
 
   $("#img-upload").fileinput({
       uploadUrl: "/ajax/image-upload",
@@ -205,18 +212,39 @@ $(document).ready(function() {
     ajax({
       type: 'POST',
       url: 'ajax/feedback-edit',
-      data: { id: id, feedback: feedback, approved: approved },
+      data: { id: id, feedback: feedback, approved: approved*1, "-NOGZ": "", "-NOFILE": "" },
       msg404: "404: задан неверный адрес для сохранения изменений.",
       success: function(data) {
-        $(this).prop('disabled', true);
+        //$(this).prop('disabled', true);
+        console.log(data);
         if (data.success) {
           //location.reload();
-          showNotice('Отзыв сохранен.');
+          showNotice('Изменения сохранены');
+          $('#'+id+'-feedback-input').removeClass('fld-changed');
+          $('#'+id+'-switch').parent().parent().removeClass('fld-changed');
+          disableSaveBtn(id);
         } else {
           showAlert(data.message);
         }
       },
     });
+  });
+
+  //-----------------------------------------------------------------------
+
+  $("#down").click(function(){
+    //Необходимо прокрутить в конец страницы
+    let h=$("body").height();
+    $("body").animate({ scrollTop: h }, 3000, 'swing', function() {
+      $('#name').focus();
+    });
+  });
+
+  //-----------------------------------------------------------------------
+
+  $('.btn-order-by').click(function() {
+    let fld = $(this).data('fld');
+    document.location = document.location.pathname+"?orderBy="+fld;
   });
 
   //-----------------------------------------------------------------------
@@ -278,6 +306,15 @@ $(document).ready(function() {
       $(btn).prop('disabled',false).addClass('btn-success').removeClass('btn-default');
     }
   }
+
+
+  function disableSaveBtn(id) {
+    let btn = $('#'+id+'-save-btn')
+    if (!$(btn).prop('disabled')) {
+      $(btn).prop('disabled',true).removeClass('btn-success').addClass('btn-default');
+    }
+  }
+
 
 
   function showAlertAndFocusOn(errMsg, errFldID) {

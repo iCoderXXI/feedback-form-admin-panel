@@ -5,7 +5,7 @@ require_once PATH_LIB_DBSIMPLE.'/Connect.php';
 if ($dsn = cfg2dsn()) {
 
   $DB = new DbSimple_Connect($dsn);
-  //$DB->setErrorHandler('databaseErrorHandler');
+  $DB->setErrorHandler('databaseErrorHandler');
 
 	//Исправить, вынести в конфиг и поставить условие.
 	$DB->query("SET @@session.time_zone='+04:00'");
