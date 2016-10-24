@@ -235,7 +235,7 @@ $(document).ready(function() {
   $("#down").click(function(){
     //Необходимо прокрутить в конец страницы
     let h=$("body").height();
-    $("body").animate({ scrollTop: h }, 3000, 'swing', function() {
+    $('html, body').animate({ scrollTop: h }, 3000, 'swing', function() {
       $('#name').focus();
     });
   });
