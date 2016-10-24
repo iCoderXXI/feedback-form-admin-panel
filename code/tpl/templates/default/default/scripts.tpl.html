@@ -108,6 +108,11 @@ $(document).ready(function() {
           } else {
 
             $('#feedback-preview-feedback').fadeOut(2000);
+            $('.file-drop-zone').addClass('hidden');
+            $('#name').val('');
+            $('#email').val('');
+            $('#feedback').val('');
+
 
             showNotice(data.message);
 
