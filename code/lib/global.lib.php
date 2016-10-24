@@ -157,7 +157,12 @@ function imgMime2Ext($mime) {
 
 
 function fbImgUrl($img) {
-  return URL_FEEDBACKS.'/'.$img;
+  $url = URL_FEEDBACKS.'/'.$img;
+  //print_rd($url, PATH_FEEDBACKS.'/'.$img, !is_file(PATH_FEEDBACKS.'/'.$img), );
+  if (!is_file(PATH_FEEDBACKS.'/'.$img)) {
+    $url = URL_IMG.'/'.PLACEHOLDER_IMG;
+  }
+  return $url;
 }
 
 

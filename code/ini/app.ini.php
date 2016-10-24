@@ -1,5 +1,8 @@
 <?php
 
+define('PLACEHOLDER_IMG','profile-placeholder.png');
+define('URL_PLACEHOLDER_IMG', URL_IMG.'/'.PLACEHOLDER_IMG);
+
 return [
   'DB' => [
     'DRIVER' => 'mypdo',

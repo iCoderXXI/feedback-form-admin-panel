@@ -18,6 +18,7 @@ if (!is_dir(PATH_FEEDBACKS) && !mkdir(PATH_FEEDBACKS, 0777)) {
 }
 
 define('URL_FEEDBACKS', 'assets/feedbacks');
+define('URL_IMG', 'assets/img');
 
 define('IS_LOCAL', is_file(PATH_TMP.'/LOCAL'));
 
