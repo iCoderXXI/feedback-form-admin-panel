@@ -107,6 +107,8 @@ $(document).ready(function() {
             showAlertAndFocusOn(data.message, data.errFldID);
           } else {
 
+            $('#feedback-preview-feedback').fadeOut(2000);
+
             showNotice(data.message);
 
             let filesCount = $('#img-upload').fileinput('getFilesCount');

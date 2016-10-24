@@ -1,4 +1,4 @@
-            <div class="well {if $CONST.IS_ADMIN}{if !$approved}banned{else}approved{/if}"{/if} {if $id}id="{$id}-feedback"{/if}>
+            <div class="well {if $CONST.IS_ADMIN}{if !$approved}banned{else}approved{/if}{/if}" {if $id}id="{$id}-feedback"{/if}>
               <div class="media">
                 <div class="media-left">
                   {if $imgName}
