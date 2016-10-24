@@ -1,7 +1,11 @@
             <div class="well {if $CONST.IS_ADMIN}{if !$approved}banned{else}approved{/if}"{/if} {if $id}id="{$id}-feedback"{/if}>
               <div class="media">
                 <div class="media-left">
+                  {if $imgName}
                   <img id="{$imgId}" src="{$imgSrc}" class="media-object" style="width:100px">
+                  {else}
+                  <img id="{$imgId}" src="assets/img/placeholder-320x240.png" class="media-object" style="width:100px">
+                  {/if}
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">
